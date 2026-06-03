@@ -770,6 +770,640 @@ function vcRestart(){
   vcRenderCard();
 }
 
+// preload TTS voices
+if(window.speechSynthesis){
+  window.speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices();
+}
+
+// ── 중급1 단원별 학습 콘텐츠 ─────────────────────────────────────
+const L3_CONTENT = {
+
+  // ══════════════════════════════════════════════
+  //  1과 대인 관계
+  // ══════════════════════════════════════════════
+  0: {
+    grammar: [
+      {
+        num: 1,
+        form: '동/형 -고 해서',
+        type: '연결어미',
+        meaning: '앞 내용이 뒤 내용의 이유 중 하나임을 나타낸다.',
+        meaning_en: 'Used when the preceding clause is one of the reasons for the following clause.',
+        tip: "* '명이다'는 '명이고 해서'를 사용한다.",
+        forms: [
+          {label:'먹다', result:'먹고 해서'},
+          {label:'바쁘다', result:'바쁘고 해서'},
+          {label:'학생이다', result:'학생이고 해서'},
+        ],
+        examples: [
+          {ko:'조금 전에 샌드위치도 먹고 해서 그냥 사무실에 있으려고요.', highlight:'먹고 해서'},
+          {ko:'초등학교 동창들하고 자주 연락을 주고받고 해서 아직도 만나요.', highlight:'주고받고 해서'},
+          {ko:'상사 지시를 거절하기도 힘들고 일하는 방법도 잘 모르고 해서 직장 생활이 힘들어요.', highlight:'모르고 해서'},
+        ],
+        practice: [
+          {cue:'고향 친구와 자주 못 만나다', hint:'연락을 자주 못하다 → 사이가 멀어졌어요'},
+          {cue:'새로 사귄 친구와 성격이 다르다', hint:'공감대가 없다'},
+          {cue:'학교에서 선배를 대하기 어렵다', hint:'한국어가 부족하다'},
+          {cue:'외국 친구와 언어가 다르다', hint:'문화가 다르다'},
+        ]
+      },
+      {
+        num: 2,
+        form: '동/형 -으면 되다',
+        type: '연결어미',
+        meaning: '앞 내용이 어떤 일을 충족하는 조건임을 나타낼 때 사용한다.',
+        meaning_en: 'Used when the preceding clause states a sufficient condition for something.',
+        tip: "* '명이다'는 '명이면 되다'를 사용한다.",
+        forms: [
+          {label:'찾다 (받침○)', result:'찾으면 되다'},
+          {label:'있다 (받침○)', result:'있으면 되다'},
+          {label:'가다 (받침✕)', result:'가면 되다'},
+          {label:'크다 (받침✕)', result:'크면 되다'},
+          {label:'알다 (ㄹ탈락)', result:'알면 되다'},
+        ],
+        examples: [
+          {ko:'기능이 다양하고 속도가 빠르면 돼요.', highlight:'빠르면 돼요'},
+          {ko:'이 약은 식사 후에 드시면 됩니다.', highlight:'드시면 됩니다'},
+          {ko:'수업 신청은 홈페이지에서 하면 돼요.', highlight:'하면 돼요'},
+        ],
+        practice: [
+          {cue:'부부가 사이좋게 지내는 방법', hint:'서로 관심을 갖고 상대방의 이야기를 잘 들어 주다'},
+          {cue:'친구를 위로하는 방법', hint:'공감해 주고 같이 고민해 주다'},
+          {cue:'선배와 친하게 지내는 방법', hint:'인사를 잘하고 예의를 지키면서 말하다'},
+          {cue:'고향 친구와 사이가 멀어지지 않는 방법', hint:'자주 안부를 묻고 연락을 주고받다'},
+        ]
+      }
+    ],
+
+    audio: {
+      speaking: 'audio/1-S.mp3',
+      listening: 'audio/1-L.mp3',
+      pronunciation: 'audio/1-P.mp3'
+    },
+    speaking: {
+      dialogue: {
+        title: '대화 1 — 잠시드 씨가 고민을 이야기합니다',
+        scene: '새 직장 동료 잠시드와 반장님의 대화',
+        lines: [
+          {who:'반장님', bubble:'a', text:'잠시드 씨, 우리 회사에 온 지 일주일 됐지요? 이제 적응 다 했어요?'},
+          {who:'잠시드', bubble:'b', text:'좀 힘들지만 적응하려고 노력 중입니다.'},
+          {who:'반장님', bubble:'a', text:'힘든 게 있어요? 힘든 게 있으면 말해 봐요.'},
+          {who:'잠시드', bubble:'b', text:'아직 사람들을 대하기가 어렵고 <strong>일하는 방법도 잘 모르고 해서</strong> 좀 힘듭니다.'},
+          {who:'반장님', bubble:'a', text:'여기 온 지 얼마 안 돼서 그래요. 좀 익숙해지고 <strong>동료들하고 함께 시간을 보내면 될 거예요.</strong>'},
+          {who:'잠시드', bubble:'b', text:'네, 반장님. 시간이 지나면 괜찮아지겠지요. 신경 써 주셔서 감사합니다.'},
+        ]
+      },
+      practice: {
+        title: '말하기 연습 — 친구의 고민을 듣고 조언해 보세요',
+        example: {problem:'일하는 방법을 잘 모르다', advice:'동료들하고 함께 시간을 보내다'},
+        items: [
+          {problem:'공감대가 없다', advice:'서로에게 관심을 갖고 이야기를 잘 들어 주다'},
+          {problem:'고등학교 친구와 연락이 끊기다', advice:'다시 연락해서 만나 보다'},
+          {problem:'직장 상사를 대하기 어렵다', advice:'인사를 잘하고 예의를 지키다'},
+        ]
+      },
+      pronunciation: {
+        rule: '비음화: ㄹ 앞에 ㅇ받침이 오면 ㄹ → ㄴ',
+        desc: '받침 ㅇ + ㄹ → ㄴ으로 바뀌어요',
+        words: [
+          {word:'동료', pron:'[동뇨]'},
+          {word:'강릉', pron:'[강능]'},
+          {word:'대통령', pron:'[대통녕]'},
+        ],
+        sentences: [
+          '직장 동료와 사이가 멀어졌어요.',
+          '동호회에서 강릉에 가기로 했어요.',
+          '대통령의 말씀이 있겠습니다.',
+        ]
+      }
+    },
+
+    reading: {
+      passages: [
+        {
+          type: 'board',
+          title: '인터넷 상담 게시판 — 이민자들의 대인 관계 고민',
+          posts: [
+            {
+              title: '기숙사 룸메이트가 한국 사람인데 생활 방식이 달라서 자주 말다툼을 해요.',
+              reply: '문화가 다르니까 당연히 생활 방식이나 의견에 차이가 있죠. 룸메이트하고 솔직한 대화를 나눠 보는 건 어떨까요?'
+            },
+            {
+              title: '한국에서는 높임말 사용이 중요한데 저는 높임말이 너무 어려워요.',
+              reply: '맞아요. 높임말을 배웠지만 그것만으로는 부족해요. 저도 한국에서 오래 살았지만 아직도 어려워요. 그래서 평소에 한국 사람들이 이야기하는 것을 신경 써서 듣고 많이 연습해요.'
+            },
+            {
+              title: '한국 친구들하고 이야기할 때 무슨 말을 어떻게 해야 할지 모를 때가 많아요.',
+              reply: '저도요. 대화를 시작할 수는 있어도 길게 이어 나가기가 힘들어요. 다른 사람 이야기를 듣는 것도 연습이라고 생각하고 너무 스트레스 받지 마세요.'
+            },
+          ]
+        },
+        {
+          type: 'qna',
+          title: '직장 선배들과 잘 지내고 싶어요.',
+          content: '안녕하세요. 저는 한국에 온 지 1년 정도 된 베트남 사람입니다. 그동안 베트남 사람들이 많은 직장에 다녔는데 얼마 전에 이직을 했습니다. 새 직장에는 한국 사람들이 많고 대부분 저보다 연세가 많으신 분들입니다. 그분들과 매일 같이 일하고 식사도 하면서 함께 시간을 보내는 일이 많습니다. 그런데 대화를 하면 "윗사람한테 그렇게 말하면 안 되지!"라고 말씀하실 때가 많습니다. 이런 일이 자주 생겨서 요즘은 선배들하고 같이 있는 자리를 피하게 됩니다. 이 직장에서 선배들과 잘 지내고 싶은데 어떻게 하면 좋을까요?',
+          questions: [
+            {q:'이 사람이 어려워하는 것이 무엇입니까?', a:'높임말 사용과 선배 대하기'},
+            {q:'이 사람은 얼마 전에 회사를 옮겼다. (○/✕)', a:'○'},
+            {q:'새 직장 선배들의 나이가 많아서 기분이 나쁘다. (○/✕)', a:'✕'},
+            {q:'한국어를 배울 때 높임말을 배우지 못했다. (○/✕)', a:'✕'},
+          ],
+          vocab: ['이직','옮기다','대부분','피하다']
+        }
+      ],
+      writing: {
+        title: '쓰기 연습',
+        tasks: [
+          {
+            type: 'table',
+            prompt: '여러분은 한국인과의 관계에서 어려운 점이 있었습니까? 어려운 점을 어떻게 극복했는지 써 보세요.',
+            col1: '한국인과의 관계에서 어려운 점',
+            col2: '극복 방법',
+            rows: 3
+          },
+          {
+            type: 'essay',
+            prompt: '한국에 온 지 얼마 안 된 이민자 후배에게 한국인 친구를 잘 사귀는 방법에 대해서 조언하는 글을 써 보세요.',
+            lines: 20
+          }
+        ]
+      }
+    },
+
+    culture: {
+      title: '한국인의 친목 활동',
+      subtitle: '동창회와 동호회',
+      content: '한국인이 사회생활에서 친목을 도모하기 위하여 참석하는 대표적인 모임으로 \'동창회\'와 \'동호회\'가 있다. 동창회는 같은 학교를 졸업한 사람들이 모여 서로 친목을 도모하고 모교와 연락을 하기 위하여 만들어진 모임이다. 송년회, 체육 대회와 같은 모임을 정기적으로 열기도 하고 단체 여행을 다니기도 한다. 그리고 등산, 악기 연주, 스포츠 등 같은 취미를 가지고 함께 즐기는 사람들의 모임을 동호회라고 한다. 이러한 동호회는 보통 학교, 지역, 직장, 인터넷 커뮤니티를 중심으로 만들어진다. 요즘은 온라인에서 정보를 공유하는 모임이 먼저 만들어지고, 이를 실제 모임으로 연결해 직접 만나기도 한다.',
+      keywords: ['동창회','동호회','친목','송년회','취미 활동'],
+      questions: [
+        '동창회는 어떤 모임입니까?',
+        '동호회에 가입하면 어떤 점이 좋습니까?',
+        '여러분 고향에는 어떤 모임이 있습니까?',
+      ],
+      compare: {
+        label: '여러분 나라와 비교해 보세요',
+        ko: '한국 — 동창회, 동호회 중심의 오프라인+온라인 모임',
+        your: '여러분 나라의 친목 문화는 어떤가요?'
+      }
+    },
+
+    vocab_check: [
+      '공감대가 없다','사이가 멀어지다','연락이 끊기다','선배','대하다','후배','상사','지시',
+      '거절하다','요청','솔직하다','예의를 지키다','공감','사귀다','내성적이다','부족하다',
+      '관심을 갖다','사이좋다','위로','이야기를 나누다','동호회','말다툼','답답하다',
+      '이직','적응하다','노력 중이다'
+    ]
+  }
+};
+
+// ── 문법 렌더 함수 ────────────────────────────────────────────────
+function renderLessonGrammar(){
+  const l=currentLesson;
+  const content = l.bookId==='l3' ? L3_CONTENT[l.idx] : null;
+  const grammarData = content?.grammar;
+
+  if(!grammarData){
+    document.getElementById('ld-body').innerHTML=`
+      <div class="vc-empty"><div class="vc-empty-icon">✏️</div>
+      <div style="font-size:14px;font-weight:600;margin-bottom:6px">문법 내용 준비 중</div>
+      <div style="font-size:12px">Grammar content coming soon</div></div>
+    `+navButtons(l.bookId,l.idx);
+    return;
+  }
+
+  let html='<div class="ld-section">';
+  html+=`<div class="tip-box" style="margin-bottom:16px">
+    <div class="tip-lbl">📖 이번 단원 문법 ${grammarData.length}개</div>
+    <div class="tip-txt">교재의 문법 설명과 예문을 확인하고, 연습 문제로 활용해 보세요.</div>
+  </div>`;
+
+  grammarData.forEach(g=>{
+    html+=`<div class="gram-card" style="margin-bottom:16px">
+      <div class="gc-head">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="background:var(--navy);color:#fff;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px">${g.num}</span>
+          <div class="gc-form">${g.form}</div>
+        </div>
+        <span class="gc-tag">${g.type}</span>
+      </div>
+      <div class="gc-body">
+        <div style="background:var(--blue-l);border-radius:8px;padding:10px 14px;margin-bottom:12px">
+          <div style="font-size:13px;font-weight:600;color:var(--blue);margin-bottom:3px">📌 의미</div>
+          <div style="font-size:13px;color:#1a1f2e;line-height:1.6">${g.meaning}</div>
+          <div style="font-size:11px;color:var(--txt3);margin-top:3px">${g.meaning_en}</div>
+        </div>
+
+        <!-- 형태 변화표 -->
+        <div style="margin-bottom:12px">
+          <div style="font-size:12px;font-weight:600;color:var(--txt2);margin-bottom:7px">📊 형태 변화</div>
+          <div class="gc-form-table">
+            ${g.forms.map(f=>`<div class="gc-form-row">
+              <div class="gc-form-lbl">${f.label}</div>
+              <div class="gc-form-val">${f.result}</div>
+            </div>`).join('')}
+          </div>
+          ${g.tip?`<div style="font-size:11px;color:var(--teal-d);background:var(--teal-l);padding:6px 10px;border-radius:6px;margin-top:8px">${g.tip}</div>`:''}
+        </div>
+
+        <!-- 예문 -->
+        <div style="margin-bottom:12px">
+          <div style="font-size:12px;font-weight:600;color:var(--txt2);margin-bottom:7px">💬 예문</div>
+          <div class="gc-examples">
+            ${g.examples.map(e=>`<div class="gc-ex">${e.ko.replace(e.highlight,`<strong style="color:var(--teal-d);background:var(--teal-l);padding:1px 4px;border-radius:4px">${e.highlight}</strong>`)}</div>`).join('')}
+          </div>
+        </div>
+
+        <!-- 연습 -->
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--txt2);margin-bottom:7px">✏️ 연습해 보세요</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            ${g.practice.map((p,i)=>`<div style="background:var(--bg);border-radius:8px;padding:10px 12px;border:1px solid var(--bdr)">
+              <div style="font-size:12px;color:var(--txt3);margin-bottom:4px">예시 ${i+1}</div>
+              <div style="font-size:13px;color:var(--txt);font-weight:500">${p.cue}</div>
+              <div style="font-size:12px;color:var(--txt3);margin-top:4px">힌트: ${p.hint}</div>
+            </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  html+='</div>'+navButtons(l.bookId,l.idx);
+  document.getElementById('ld-body').innerHTML=html;
+}
+
+// ── 말하기·듣기 렌더 함수 ─────────────────────────────────────────
+function renderLessonSpeaking(){
+  const l=currentLesson;
+  const content = l.bookId==='l3' ? L3_CONTENT[l.idx] : null;
+  const sp = content?.speaking;
+  const au = content?.audio;
+
+  if(!sp){
+    document.getElementById('ld-body').innerHTML=`
+      <div class="vc-empty"><div class="vc-empty-icon">🗣️</div>
+      <div style="font-size:14px;font-weight:600;margin-bottom:6px">말하기·듣기 내용 준비 중</div>
+      <div style="font-size:12px">Speaking & Listening content coming soon</div></div>
+    `+navButtons(l.bookId,l.idx);
+    return;
+  }
+
+  // 오디오 플레이어 HTML 생성 함수
+  function audioPlayer(src, label, icon){
+    if(!src) return '';
+    return `<div style="background:var(--navy);border-radius:var(--r);padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#0abf8a);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">${icon}</div>
+      <div style="flex:1;min-width:0">
+        <div style="color:#fff;font-size:12px;font-weight:600;margin-bottom:6px">${label}</div>
+        <audio controls style="width:100%;height:32px;accent-color:var(--teal)" preload="none">
+          <source src="${src}" type="audio/mpeg">
+          브라우저가 오디오를 지원하지 않습니다.
+        </audio>
+      </div>
+    </div>`;
+  }
+
+  const dlgColors={a:'var(--teal-l)',b:'var(--blue-l)'};
+  const dlgLines = sp.dialogue.lines.map(line=>`
+    <div class="dialogue-line">
+      <div class="dlg-who" style="background:${dlgColors[line.bubble]}">${line.bubble==='a'?'👨':'👤'}</div>
+      <div class="dlg-bubble">
+        <strong>${line.who}</strong>
+        <p>${line.text}</p>
+      </div>
+    </div>`).join('');
+
+  const practiceItems = sp.practice.items.map((item,i)=>`
+    <div style="background:var(--bg);border:1px solid var(--bdr);border-radius:9px;padding:12px 14px;margin-bottom:8px">
+      <div style="display:flex;gap:12px;align-items:center">
+        <span style="background:var(--coral-l);color:var(--coral);font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;flex-shrink:0">${i+1}</span>
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--txt)">고민: ${item.problem}</div>
+          <div style="font-size:12px;color:var(--teal-d);margin-top:3px">💡 조언: ${item.advice}</div>
+        </div>
+      </div>
+    </div>`).join('');
+
+  const pronWords = sp.pronunciation.words.map(w=>`
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:10px 14px;text-align:center">
+      <div style="font-size:18px;font-weight:700;color:var(--navy)">${w.word}</div>
+      <div style="font-size:14px;color:var(--teal-d);margin-top:4px">${w.pron}</div>
+    </div>`).join('');
+
+  const pronSents = sp.pronunciation.sentences.map((s,i)=>`
+    <div class="gc-ex" style="cursor:pointer" onclick="speakTTS_inline('${s}')">
+      ${i+1}. ${s} <span style="font-size:11px;color:var(--teal);margin-left:6px">🔊 TTS</span>
+    </div>`).join('');
+
+  let html=`<div class="ld-section">
+
+    <!-- ── 말하기 ── -->
+    <div class="ld-section-title">🗣️ 말하기
+      <span class="badge" style="background:var(--coral-l);color:var(--coral)">대화문</span>
+    </div>
+    <div class="tip-box" style="margin-bottom:12px">
+      <div class="tip-lbl">💡 학습 팁</div>
+      <div class="tip-txt">음원을 먼저 듣고, 대화문을 보면서 따라 읽어보세요. A·B 역할을 바꿔가며 연습하면 효과적입니다.</div>
+    </div>
+
+    ${audioPlayer(au?.speaking, '🗣️ 1과 말하기 음원 (1-S)', '🗣️')}
+
+    <div class="dialogue-card" style="margin-bottom:20px">
+      <div style="font-size:12px;font-weight:600;color:var(--txt3);margin-bottom:12px">📌 ${sp.dialogue.title}</div>
+      <div style="font-size:11px;color:var(--txt3);margin-bottom:12px;background:var(--bg);padding:6px 10px;border-radius:6px">상황: ${sp.dialogue.scene}</div>
+      ${dlgLines}
+    </div>
+
+    <!-- ── 말하기 연습 ── -->
+    <div class="ld-section-title" style="margin-top:4px">✏️ 말하기 연습
+      <span class="badge" style="background:var(--teal-l);color:var(--teal-d)">역할 연습</span>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;margin-bottom:20px">
+      <div style="font-size:13px;font-weight:600;color:var(--txt);margin-bottom:4px">${sp.practice.title}</div>
+      <div style="font-size:12px;color:var(--txt3);margin-bottom:12px">
+        예시: <strong>${sp.practice.example.problem}</strong> → ${sp.practice.example.advice}
+      </div>
+      ${practiceItems}
+    </div>
+
+    <!-- ── 듣기 ── -->
+    <div class="ld-section-title">🎧 듣기
+      <span class="badge" style="background:var(--blue-l);color:var(--blue)">본문 듣기</span>
+    </div>
+    <div class="tip-box" style="margin-bottom:12px">
+      <div class="tip-lbl">💡 학습 팁</div>
+      <div class="tip-txt">음원을 들으면서 내용을 이해해 보세요. 두 번 이상 들으며 핵심 내용을 파악하세요.</div>
+    </div>
+
+    ${audioPlayer(au?.listening, '🎧 1과 듣기 음원 (1-L) — 고천 씨가 아들 성민과 이야기합니다', '🎧')}
+
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;margin-bottom:20px">
+      <div style="font-size:13px;font-weight:600;color:var(--txt);margin-bottom:12px">📝 듣기 후 질문에 답하세요</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="background:var(--bg);border-radius:8px;padding:10px 12px;border:1px solid var(--bdr)">
+          <div style="font-size:12px;font-weight:600;color:var(--txt2);margin-bottom:6px">1) 들은 내용과 같으면 ○, 다르면 ✕ 하세요.</div>
+          ${['성민은 새 학교에서 친구들을 많이 사귀었다.','성민은 주변에 있는 친구들과 내일 약속이 있다.','성민의 친구들은 중국에 관심이 많아서 질문이 많다.'].map((q,i)=>`
+          <label style="display:flex;align-items:center;gap:10px;padding:5px 0;cursor:pointer;font-size:12.5px;color:var(--txt)">
+            <input type="radio" name="lq${i}a" value="O"> ○
+            <input type="radio" name="lq${i}a" value="X"> ✕
+            <span>${q}</span>
+          </label>`).join('')}
+        </div>
+        <div style="background:var(--bg);border-radius:8px;padding:10px 12px;border:1px solid var(--bdr)">
+          <div style="font-size:12px;font-weight:600;color:var(--txt2);margin-bottom:6px">2) 성민이 엄마에게 들은 이야기가 아닌 것을 고르세요.</div>
+          ${['"친구들 이야기를 잘 들어 주면 된다."','"친구들하고 함께 시간을 보내면 된다."','"친구들하고 싸우지 말고 사이좋게 지내야 한다."','"중국에 대해서 친구들에게 많이 이야기해 주면 좋다."'].map((opt,i)=>`
+          <label style="display:flex;align-items:center;gap:8px;padding:4px 0;cursor:pointer;font-size:12px;color:var(--txt)">
+            <input type="radio" name="lq2" value="${i+1}">
+            <span>❶ ❷ ❸ ❹'.split(' ')[${i}]</span> ${opt}
+          </label>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 발음 ── -->
+    <div class="ld-section-title">🔊 발음
+      <span class="badge" style="background:var(--navy);color:#4ee8b0">${sp.pronunciation.rule}</span>
+    </div>
+
+    ${audioPlayer(au?.pronunciation, '🔊 1과 발음 음원 (1-P) — 비음화: 동료[동뇨], 강릉[강능], 대통령[대통녕]', '🔊')}
+
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--rl);overflow:hidden;margin-bottom:16px">
+      <div style="background:var(--navy);padding:10px 16px">
+        <div style="color:#fff;font-size:13px;font-weight:600">${sp.pronunciation.rule}</div>
+        <div style="color:rgba(200,212,230,.7);font-size:11px;margin-top:2px">${sp.pronunciation.desc}</div>
+      </div>
+      <div style="padding:14px 16px">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">
+          ${pronWords}
+        </div>
+        <div style="font-size:12px;font-weight:600;color:var(--txt2);margin-bottom:8px">다음을 듣고 따라 읽으세요</div>
+        <div class="gc-examples">${pronSents}</div>
+      </div>
+    </div>
+
+    <!-- ── TTS 발음 연습 ── -->
+    <div class="ld-section-title">🔤 직접 발음 연습 (TTS)
+      <span class="badge" style="background:var(--green-l);color:var(--green)">브라우저 음성</span>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:14px">
+      <div style="font-size:12px;color:var(--txt2);margin-bottom:10px">단어나 문장을 입력하고 발음을 들어보세요</div>
+      <div style="display:flex;gap:8px">
+        <input id="tts-input" type="text" placeholder="한국어를 입력하세요..."
+          style="flex:1;padding:9px 12px;border:1px solid var(--bdr);border-radius:8px;font-size:13px;font-family:inherit;background:var(--bg);color:var(--txt);outline:none"
+          onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--bdr)'"
+          onkeydown="if(event.key==='Enter')speakTTS()">
+        <button onclick="speakTTS()"
+          style="padding:9px 16px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">
+          🔊 듣기
+        </button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">
+        ${['동료[동뇨]','강릉[강능]','대통령[대통녕]'].map(v=>`<button onclick="document.getElementById('tts-input').value='${v.split('[')[0]}';speakTTS()"
+          style="padding:4px 10px;font-size:12px;border:1px solid var(--bdr);border-radius:6px;background:var(--bg);color:var(--txt2);cursor:pointer;font-family:inherit">${v}</button>`).join('')}
+      </div>
+    </div>
+
+  </div>`+navButtons(l.bookId,l.idx);
+  document.getElementById('ld-body').innerHTML=html;
+}
+
+function speakTTS_inline(text){
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const utt=new SpeechSynthesisUtterance(text);
+  const v=window.speechSynthesis.getVoices().find(v=>v.lang.startsWith('ko'))||null;
+  if(v)utt.voice=v; utt.lang='ko-KR'; utt.rate=0.85;
+  window.speechSynthesis.speak(utt);
+}
+function speakTTS(){
+  const text=document.getElementById('tts-input')?.value?.trim();
+  if(text) speakTTS_inline(text);
+}
+
+// ── 읽기·쓰기 렌더 함수 ─────────────────────────────────────────
+function renderLessonReading(){
+  const l=currentLesson;
+  const content = l.bookId==='l3' ? L3_CONTENT[l.idx] : null;
+  const rd = content?.reading;
+
+  if(!rd){
+    document.getElementById('ld-body').innerHTML=`
+      <div class="vc-empty"><div class="vc-empty-icon">📖</div>
+      <div style="font-size:14px;font-weight:600;margin-bottom:6px">읽기·쓰기 내용 준비 중</div>
+      <div style="font-size:12px">Reading & Writing content coming soon</div></div>
+    `+navButtons(l.bookId,l.idx);
+    return;
+  }
+
+  let html='<div class="ld-section">';
+
+  rd.passages.forEach(p=>{
+    if(p.type==='board'){
+      html+=`
+      <div class="ld-section-title">📖 읽기 1 — ${p.title}
+        <span class="badge" style="background:var(--blue-l);color:var(--blue)">게시판</span>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--rl);overflow:hidden;margin-bottom:20px">
+        <div style="background:#f8f9fa;border-bottom:2px solid #e9ecef;padding:8px 14px;display:flex;align-items:center;gap:8px">
+          <div style="width:10px;height:10px;border-radius:50%;background:#ff5f57"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#febc2e"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#28c840"></div>
+          <div style="flex:1;background:#fff;border-radius:4px;padding:4px 10px;font-size:11px;color:var(--txt3)">온라인 상담 게시판</div>
+        </div>
+        ${p.posts.map(post=>`
+          <div style="border-bottom:1px solid var(--bdr);padding:14px 16px">
+            <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px">
+              <span style="background:var(--blue-l);color:var(--blue);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:2px">제목</span>
+              <div style="font-size:13px;font-weight:500;color:var(--txt)">${post.title}</div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;padding-left:8px">
+              <span style="color:var(--txt3);font-size:13px;flex-shrink:0">↳</span>
+              <div style="font-size:12.5px;color:var(--txt2);line-height:1.65;background:var(--bg);padding:8px 12px;border-radius:8px">${post.reply}</div>
+            </div>
+          </div>`).join('')}
+      </div>`;
+    }
+
+    if(p.type==='qna'){
+      html+=`
+      <div class="ld-section-title">📖 읽기 2 — Q&A 상담 글
+        <span class="badge" style="background:var(--amber-l);color:var(--amber)">읽기 본문</span>
+      </div>
+      <div class="gram-card" style="margin-bottom:16px">
+        <div class="gc-head">
+          <div class="gc-form" style="font-size:14px">제목: ${p.title}</div>
+          <span style="font-size:10px;background:var(--teal-l);color:var(--teal-d);padding:2px 8px;border-radius:20px">읽기 본문</span>
+        </div>
+        <div class="gc-body">
+          <div style="font-size:13px;line-height:1.85;color:var(--txt);background:var(--bg);padding:14px;border-radius:8px;margin-bottom:14px">${p.content}</div>
+
+          <div style="font-size:12px;font-weight:600;color:var(--txt2);margin-bottom:10px">📝 질문에 답해 보세요</div>
+          ${p.questions.map((q,i)=>`
+            <div style="border:1px solid var(--bdr);border-radius:8px;padding:10px 12px;margin-bottom:8px">
+              <div style="font-size:13px;font-weight:500;color:var(--txt);margin-bottom:8px">${i+1}) ${q.q}</div>
+              <details style="margin-top:4px">
+                <summary style="font-size:11px;color:var(--teal);cursor:pointer;list-style:none">▶ 정답 확인</summary>
+                <div style="font-size:12px;color:var(--teal-d);background:var(--teal-l);padding:6px 10px;border-radius:6px;margin-top:6px">✅ ${q.a}</div>
+              </details>
+            </div>`).join('')}
+
+          <div style="font-size:12px;font-weight:600;color:var(--txt2);margin:12px 0 8px">📚 단어장</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            ${p.vocab.map(v=>`<span style="background:var(--amber-l);color:var(--amber);font-size:12px;font-weight:500;padding:3px 10px;border-radius:20px">${v}</span>`).join('')}
+          </div>
+        </div>
+      </div>`;
+    }
+  });
+
+  // 쓰기
+  html+=`<div class="ld-section-title">✍️ 쓰기 연습</div>`;
+  rd.writing.tasks.forEach((task,ti)=>{
+    if(task.type==='table'){
+      html+=`
+      <div class="writing-card" style="margin-bottom:14px">
+        <div class="wc-prompt">${ti+1}. ${task.prompt}</div>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:0;border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:8px">
+          <div style="background:var(--blue-l);padding:8px 12px;font-size:12px;font-weight:600;color:var(--blue);text-align:center">${task.col1}</div>
+          <div style="background:var(--bdr);width:1px"></div>
+          <div style="background:var(--green-l);padding:8px 12px;font-size:12px;font-weight:600;color:var(--green);text-align:center">${task.col2}</div>
+          ${Array.from({length:task.rows}).map(()=>`
+            <div style="border-top:1px solid var(--bdr);padding:6px 8px">
+              <textarea class="wc-area" style="min-height:50px;font-size:12px" placeholder="어려운 점을 써 보세요..."></textarea>
+            </div>
+            <div style="border-top:1px solid var(--bdr);background:var(--bdr);width:1px"></div>
+            <div style="border-top:1px solid var(--bdr);padding:6px 8px">
+              <textarea class="wc-area" style="min-height:50px;font-size:12px" placeholder="극복 방법을 써 보세요..."></textarea>
+            </div>`).join('')}
+        </div>
+      </div>`;
+    }
+    if(task.type==='essay'){
+      html+=`
+      <div class="writing-card" style="margin-bottom:14px">
+        <div class="wc-prompt">${ti+1}. ${task.prompt}</div>
+        <textarea class="wc-area" style="min-height:220px;line-height:2.2;background-image:repeating-linear-gradient(transparent,transparent 31px,#e4e8ef 31px,#e4e8ef 32px)" placeholder="여기에 글을 써 보세요..."></textarea>
+      </div>`;
+    }
+  });
+
+  html+='</div>'+navButtons(l.bookId,l.idx);
+  document.getElementById('ld-body').innerHTML=html;
+}
+
+// ── 한국 문화 렌더 함수 ───────────────────────────────────────────
+function renderLessonCulture(){
+  const l=currentLesson;
+  const content = l.bookId==='l3' ? L3_CONTENT[l.idx] : null;
+  const cult = content?.culture;
+
+  if(!cult){
+    document.getElementById('ld-body').innerHTML=`
+      <div class="vc-empty"><div class="vc-empty-icon">🎎</div>
+      <div style="font-size:14px;font-weight:600;margin-bottom:6px">한국 문화 내용 준비 중</div>
+      <div style="font-size:12px">Korean Culture content coming soon</div></div>
+    `+navButtons(l.bookId,l.idx);
+    return;
+  }
+
+  const kwTags = cult.keywords.map(k=>`<span style="background:var(--amber-l);color:var(--amber);font-size:12px;font-weight:500;padding:3px 10px;border-radius:20px">${k}</span>`).join('');
+  const qItems = cult.questions.map((q,i)=>`
+    <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--bdr)">
+      <span style="background:var(--teal);color:#fff;font-size:11px;font-weight:700;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">${i+1}</span>
+      <div style="font-size:13px;color:var(--txt);line-height:1.5">${q}</div>
+    </div>`).join('');
+
+  let html=`<div class="ld-section">
+
+    <div class="ld-section-title">🎎 문화와 정보
+      <span class="badge" style="background:var(--amber-l);color:var(--amber)">${cult.subtitle}</span>
+    </div>
+
+    <div class="culture-card" style="margin-bottom:16px">
+      <div class="cult-img" style="background:linear-gradient(135deg,#faeeda,#f5d199);font-size:60px">🏫</div>
+      <div class="cult-body">
+        <div class="cult-title">${cult.title}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px">${kwTags}</div>
+        <div class="cult-text">${cult.content}</div>
+      </div>
+    </div>
+
+    <!-- 토론 질문 -->
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:600;color:var(--txt);margin-bottom:4px">💬 이야기해 보세요</div>
+      ${qItems}
+    </div>
+
+    <!-- 비교 활동 -->
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:600;color:var(--txt);margin-bottom:12px">🌏 ${cult.compare.label}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="background:var(--teal-l);border-radius:8px;padding:12px">
+          <div style="font-size:10px;font-weight:700;color:var(--teal-d);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">🇰🇷 한국</div>
+          <div style="font-size:12px;color:var(--teal-d);line-height:1.55">${cult.compare.ko}</div>
+        </div>
+        <div style="background:var(--amber-l);border-radius:8px;padding:12px">
+          <div style="font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">🌏 우리나라</div>
+          <textarea style="width:100%;border:none;background:transparent;font-size:12px;color:#8a5200;font-family:inherit;outline:none;resize:none;min-height:50px" placeholder="${cult.compare.your}"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 배운 어휘 확인 -->
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:14px">
+      <div style="font-size:13px;font-weight:600;color:var(--txt);margin-bottom:12px">📋 배운 어휘 확인 (${content.vocab_check.length}개)</div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px">
+        ${content.vocab_check.map(v=>`<label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:12px;color:var(--txt2)">
+          <input type="checkbox" style="accent-color:var(--teal)"> ${v}
+        </label>`).join('')}
+      </div>
+    </div>
+
+  </div>`+navButtons(l.bookId,l.idx);
+  document.getElementById('ld-body').innerHTML=html;
+}
+
 // ── DATA ──
 const books = {
   l1:{
@@ -1245,125 +1879,6 @@ function vcSwitchUnit(unitIdx){
   if(currentBook&&currentBook.id==='l3'){
     openLesson(unitIdx);
   }
-}
-
-function renderLessonGrammar(){
-  const l=currentLesson;
-  const gramDesc={
-    '이에요/예요':'명사 뒤에 붙어 "~입니다"의 의미를 나타냅니다. 받침이 있으면 "이에요", 없으면 "예요"를 씁니다.',
-    '은/는 (주어)':'주어를 나타내는 조사입니다. 받침이 있으면 "은", 없으면 "는"을 씁니다. 대조나 화제를 나타낼 때 사용합니다.',
-    '이/가 아니에요':'부정을 나타냅니다. "이/가 아닙니다"와 같은 뜻입니다.',
-    '이/가 있어요·없어요':'존재를 나타냅니다. 있어요(존재함)/없어요(존재하지 않음)',
-    '아/어요 (기본형)':'기본 동사·형용사 활용형입니다. 일상적인 회화에서 가장 많이 사용합니다.',
-    '부터~까지':'시작과 끝을 나타냅니다. 시간, 장소 모두 사용 가능합니다.',
-    '(으)ㄹ 거예요 (미래)':'미래의 계획이나 의지를 나타냅니다.',
-    '았/었어요 (과거)':'과거 시제를 나타냅니다.',
-    '아서/어서 (이유)':'이유나 원인을 나타냅니다. "~이기 때문에"와 유사합니다.',
-    '(으)면 (조건)':'조건을 나타냅니다. "만약 ~이라면"의 뜻입니다.',
-    '기로 하다 (결심)':'결심이나 약속을 나타냅니다.',
-    '(으)ㄹ 수 있다/없다 (가능)':'가능/불가능을 나타냅니다.',
-    'ㄴ데/는데 (대조)':'두 가지 상황을 대조하거나 배경을 설명할 때 사용합니다.',
-    '아/어 보다 (시도)':'시도나 경험을 나타냅니다. "한번 해보다"의 의미입니다.',
-    '(으)면서 (동시)':'두 가지 동작이 동시에 일어남을 나타냅니다.',
-    '고 나서 (순서)':'앞의 행동이 끝난 후 다음 행동을 나타냅니다.',
-  };
-  let html=`<div class="ld-section">
-    <div class="ld-section-title">✏️ 이번 단원 문법<span class="badge" style="background:var(--blue-l);color:var(--blue)">${l.grammar?.length||0}개</span></div>`;
-  (l.grammar||[]).forEach(g=>{
-    const desc=gramDesc[g]||'이 문법의 설명을 준비 중입니다.';
-    html+=`<div class="gram-card">
-      <div class="gc-head"><div class="gc-form">${g}</div><span class="gc-tag">문법</span></div>
-      <div class="gc-body">
-        <div class="gc-meaning">${desc}</div>
-        <div class="gc-examples">
-          <div class="gc-ex">예문을 준비 중입니다 <div class="gc-ex-en">Example sentences coming soon</div></div>
-        </div>
-        <div class="gc-form-table">
-          <div class="gc-form-row"><div class="gc-form-lbl">받침 ○</div><div class="gc-form-val">이에요</div></div>
-          <div class="gc-form-row"><div class="gc-form-lbl">받침 ✕</div><div class="gc-form-val">예요</div></div>
-        </div>
-      </div>
-    </div>`;
-  });
-  html+='</div>'+navButtons(l.bookId,l.idx);
-  document.getElementById('ld-body').innerHTML=html;
-}
-
-function renderLessonSpeaking(){
-  const l=currentLesson;
-  let html=`<div class="ld-section">
-    <div class="ld-section-title">🗣️ 말하기 연습<span class="badge" style="background:var(--coral-l);color:var(--coral)">대화문</span></div>
-    <div class="tip-box"><div class="tip-lbl">💡 학습 팁</div><div class="tip-txt">대화문을 소리내어 읽어보세요. A, B 역할을 바꿔가며 연습하면 효과적입니다.</div></div>
-    <div class="dialogue-card">
-      <div style="font-size:12px;font-weight:600;color:var(--txt3);margin-bottom:12px">📌 주제: ${l.topic}</div>
-      <div class="dialogue-line">
-        <div class="dlg-who dlg-a">😊</div>
-        <div class="dlg-bubble"><strong>A (학습자)</strong><p>대화문을 준비 중입니다.</p><div class="en">Dialogue coming soon.</div></div>
-      </div>
-      <div class="dialogue-line">
-        <div class="dlg-who dlg-b">🧑</div>
-        <div class="dlg-bubble"><strong>B (한국인)</strong><p>관련 대화 내용이 추가될 예정입니다.</p><div class="en">Related dialogue will be added.</div></div>
-      </div>
-    </div>
-    <div class="ld-section-title" style="margin-top:20px">🎧 듣기 연습</div>
-    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;text-align:center;color:var(--txt3)">
-      <div style="font-size:32px;margin-bottom:8px">🎵</div>
-      <div style="font-size:13px;font-weight:600;margin-bottom:5px">음성 파일 준비 중</div>
-      <div style="font-size:12px">Audio files will be added soon</div>
-    </div>
-  </div>`+navButtons(l.bookId,l.idx);
-  document.getElementById('ld-body').innerHTML=html;
-}
-
-function renderLessonReading(){
-  const l=currentLesson;
-  let html=`<div class="ld-section">
-    <div class="ld-section-title">📖 읽기 연습<span class="badge" style="background:var(--green-l);color:var(--green)">본문</span></div>
-    <div class="gram-card">
-      <div class="gc-head"><div class="gc-form" style="color:var(--green)">읽기 본문</div></div>
-      <div class="gc-body">
-        <div class="gc-meaning" style="font-size:14px;line-height:1.8">
-          📌 <strong>${l.title}</strong>에 관한 읽기 본문이 준비 중입니다.<br><br>
-          국립국어원 사회통합프로그램 교재의 해당 단원 본문을 참고하세요.
-        </div>
-      </div>
-    </div>
-    <div class="ld-section-title" style="margin-top:20px">✍️ 쓰기 연습</div>
-    <div class="writing-card">
-      <div class="wc-prompt">📝 다음 주제로 짧게 써 보세요: <strong>"${l.topic}에 대해 소개해 보세요"</strong></div>
-      <textarea class="wc-area" placeholder="여기에 쓰기 연습을 해보세요..."></textarea>
-      <div class="wc-example"><strong>예시 답안:</strong> 준비 중입니다. 선생님과 함께 작성해 보세요.</div>
-    </div>
-  </div>`+navButtons(l.bookId,l.idx);
-  document.getElementById('ld-body').innerHTML=html;
-}
-
-function renderLessonCulture(){
-  const l=currentLesson;
-  let html=`<div class="ld-section">
-    <div class="ld-section-title">🎎 한국 문화<span class="badge" style="background:var(--amber-l);color:var(--amber)">${l.culture}</span></div>
-    <div class="culture-card">
-      <div class="cult-img">🇰🇷</div>
-      <div class="cult-body">
-        <div class="cult-title">${l.culture}</div>
-        <div class="cult-text">
-          이 단원의 문화 내용 <strong>"${l.culture}"</strong>에 대한 설명이 준비 중입니다.<br><br>
-          한국 문화와 여러분의 나라 문화를 비교하며 생각해 보세요.
-        </div>
-        <div class="cult-compare">
-          <div class="cult-side">
-            <div class="cult-side-lbl">🇰🇷 한국 문화</div>
-            <div class="cult-side-txt">관련 내용이 추가될 예정입니다.</div>
-          </div>
-          <div class="cult-side">
-            <div class="cult-side-lbl">🌏 여러분 나라</div>
-            <div class="cult-side-txt">여러분 나라의 관련 문화와 비교해 보세요.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>`+navButtons(l.bookId,l.idx);
-  document.getElementById('ld-body').innerHTML=html;
 }
 
 function navButtons(bookId,idx){
